@@ -1,1 +1,1 @@
-# Registration
+# RegistrationInfo
