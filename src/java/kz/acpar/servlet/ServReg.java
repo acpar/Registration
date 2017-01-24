@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static kz.acpar.demo.CheckClass.check;
 import static kz.acpar.demo.DemoClass.authoriz;
 import static kz.acpar.demo.DemoClass.authoriz2;
 
@@ -68,7 +69,13 @@ public class ServReg extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         
-        authoriz2(login,password,email);
+        if (check(login,password,email)){
+            
+            PrintWriter out = response.getWriter();
+            out.println("Пользователь существует");
+        }
+        
+        
         
     }
 

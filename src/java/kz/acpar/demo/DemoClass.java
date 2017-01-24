@@ -5,6 +5,7 @@
  */
 package kz.acpar.demo;
 
+import java.util.List;
 import kz.acpar.entity.Userprofile;
 import kz.acpar.util.HibernateUtil;
 import org.hibernate.Session;
@@ -16,6 +17,8 @@ import org.hibernate.Session;
  * @author ABaimaganbetov
  */
 public class DemoClass {
+    
+    //private List<Userprofile> user;
     
     public static void main(String[] args) {
         
@@ -65,6 +68,15 @@ public class DemoClass {
         session.beginTransaction();
         
         try{
+            
+            
+            List <Userprofile> users = session.createQuery("from Userprofile a where a.login=" + "'"+ login + "'").list();
+            
+            if (!users.isEmpty()){
+                System.out.println("Пользователь зарегистрирован");
+            }
+            else {
+            
             String hash = byteArrayToHexString(DemoClass.computeHash(password));
             
             Userprofile userProfile = new Userprofile( login, hash, email);
@@ -74,13 +86,21 @@ public class DemoClass {
             session.save(userProfile);
 			
             session.getTransaction().commit();
+            }
             
             HibernateUtil.shutdown();
+            
+            
+      
+            
+            
         }catch(Exception e){
             e.printStackTrace();
         }
         
     }
+    
+    
     
       public static byte[] computeHash(String x)   
   throws Exception  
