@@ -6,7 +6,9 @@
     <class name="kz.acpar.entity.Userprofile" table="USERPROFILE" schema="SCOTT" optimistic-lock="version">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence">
+                <param name="sequence">SQN_USERS</param>
+            </generator>
         </id>
         <property name="login" type="string">
             <column name="LOGIN" />

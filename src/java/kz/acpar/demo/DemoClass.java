@@ -6,9 +6,9 @@
 package kz.acpar.demo;
 
 import kz.acpar.entity.Userprofile;
+import kz.acpar.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
 
 
 /**
@@ -19,31 +19,42 @@ public class DemoClass {
     
     public static void main(String[] args) {
         
-        SessionFactory factory= new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Userprofile.class)
-                .buildSessionFactory();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         
-        Session session = factory.getCurrentSession();
         
-        try{
+        
+       
             
-            Userprofile userProfile = new Userprofile(1, "Acpar", "Zac", "Acpar@mail.ru");
+            Userprofile userProfile = new Userprofile( "Vlad", "Asd", "vlad@mail.ru");
             
             System.out.println(userProfile);
-        
-            session.beginTransaction();
-			
+                    	
             session.save(userProfile);
 			
             session.getTransaction().commit();
+            
+            HibernateUtil.shutdown();
         
-        }finally{
-            	factory.close();
-                
-	}
+    
         
         
+    }
+    
+    public static void authoriz(String login,String password,String email){
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+               
+            Userprofile userProfile = new Userprofile( login, password, email);
+            
+            System.out.println(userProfile);
+                    	
+            session.save(userProfile);
+			
+            session.getTransaction().commit();
+            
+            HibernateUtil.shutdown();
         
     }
     
