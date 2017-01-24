@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static kz.acpar.demo.DemoClass.authoriz;
+import static kz.acpar.demo.DemoClass.authoriz2;
 
 /**
  *
@@ -67,7 +68,7 @@ public class ServReg extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         
-        authoriz(login,password,email);
+        authoriz2(login,password,email);
         
     }
 
